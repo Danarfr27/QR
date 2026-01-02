@@ -182,3 +182,23 @@ function sendViaWhatsApp() {
   const message = encodeURIComponent(`Hasil scan:\n${lastScan[0]}\nWaktu: ${lastScan[1]}`);
   window.open(`https://wa.me/?text=${message}`, '_blank');
 }
+
+// --- Parallax background (simple, performant) ---
+(() => {
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        // move background slightly for parallax effect
+        document.body.style.backgroundPosition = `center ${-y * 0.25}px`;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  // enable on load
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // also trigger once to initialize
+  onScroll();
+})();
