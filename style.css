@@ -1,40 +1,42 @@
-.card {
-  /* show background image at full opacity */
-  background-image: url('https://uploader.zenzxz.dpdns.org/uploads/1767381683610.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(6, 24, 60, 0.12);
-  padding: 2rem;
-  max-width: 760px;
-  width: 100%;
-  text-align: center;
-  transition: background 0.25s, color 0.25s;
-  color: #0b1220;
+/* Layout reset and full-viewport support */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-  color: #0b1220;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #fff;
 }
 
 .card {
-  /* card uses provided image as background with soft white overlay for readability */
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.86),
-      rgba(255, 255, 255, 0.7)
-    ),
-    url("https://uploader.zenzxz.dpdns.org/uploads/1767381683610.jpeg");
+  /* use the provided background and expand full width of the viewport container */
+  background-image: url("https://uploader.zenzxz.dpdns.org/uploads/1767381683610.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(6, 24, 60, 0.12);
   padding: 2rem;
-  max-width: 760px;
+  max-width: none; /* allow full width */
   width: 100%;
   text-align: center;
   transition: background 0.25s, color 0.25s;
   color: #0b1220;
-  backdrop-filter: blur(6px);
+  margin: 0 auto;
+}
+
+/* `.card` uses the full-bleed background image (no semi-opaque white overlay) */
+.card {
+  background-image: url("https://uploader.zenzxz.dpdns.org/uploads/1767381683610.jpeg");
 }
 
 input[type="text"],
@@ -48,7 +50,8 @@ input[type="file"] {
   color: #052035;
   box-sizing: border-box;
   border: 3px solid #000000;
-  box-shadow: inset 0 2px 0 rgba(2,24,48,0.04), 0 10px 30px rgba(0,0,0,0.32);
+  box-shadow: inset 0 2px 0 rgba(2, 24, 48, 0.04),
+    0 10px 30px rgba(0, 0, 0, 0.32);
   font-weight: 700;
   outline: none;
 }
@@ -56,13 +59,18 @@ input[type="file"] {
 input[type="text"]:focus,
 input[type="file"]:focus {
   border-color: #000000;
-  box-shadow: 0 18px 44px rgba(0,0,0,0.36), inset 0 2px 8px rgba(0,0,0,0.06);
-  outline: 5px solid rgba(0,0,0,0.18);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.36),
+    inset 0 2px 8px rgba(0, 0, 0, 0.06);
+  outline: 5px solid rgba(0, 0, 0, 0.18);
   outline-offset: 4px;
 }
 
 /* stronger placeholder weight and visibility */
-input[type="text"]::placeholder { color: rgba(5,32,53,0.6); font-weight: 600; opacity: 0.95 }
+input[type="text"]::placeholder {
+  color: rgba(5, 32, 53, 0.6);
+  font-weight: 600;
+  opacity: 0.95;
+}
 
 canvas {
   border-radius: 8px;
@@ -93,21 +101,21 @@ canvas.show {
   color: #ffffff;
   font-weight: 800;
   letter-spacing: 0.2px;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.32);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.32);
   transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
-  box-shadow: 0 18px 48px rgba(0,0,0,0.42);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
 }
 
 .wide-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 14px 36px rgba(2,56,120,0.18);
+  box-shadow: 0 14px 36px rgba(2, 56, 120, 0.18);
   filter: brightness(1.02);
 }
 
 .wide-button:focus-visible {
-  outline: 6px solid rgba(0,0,0,0.22);
+  outline: 6px solid rgba(0, 0, 0, 0.22);
   outline-offset: 6px;
-  box-shadow: 0 22px 56px rgba(0,0,0,0.48);
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.48);
 }
 
 .btn-icon {
@@ -120,6 +128,7 @@ canvas.show {
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap; /* allow wrapping so items don't overlap on small screens */
 }
 
 .tab-buttons button {
@@ -133,15 +142,18 @@ canvas.show {
   transition: 0.12s ease;
   font-weight: 800;
   letter-spacing: 0.2px;
-  box-shadow: 0 18px 48px rgba(0,0,0,0.36);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
 }
 
 .tab-buttons button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(6,24,60,0.12);
+  box-shadow: 0 12px 28px rgba(6, 24, 60, 0.12);
 }
 
-.tab-buttons button:focus-visible { outline: 6px solid rgba(0,0,0,0.22); outline-offset: 4px }
+.tab-buttons button:focus-visible {
+  outline: 6px solid rgba(0, 0, 0, 0.22);
+  outline-offset: 4px;
+}
 
 .tab-content {
   display: none;
@@ -171,7 +183,7 @@ canvas.show {
   height: 56px;
   font-size: 24px;
   color: #021023;
-  box-shadow: 0 18px 44px rgba(0,0,0,0.4);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -286,13 +298,31 @@ canvas.show {
   transform: translateY(-3px);
   box-shadow: 0 16px 36px rgba(6, 24, 60, 0.12);
 }
-.tab-buttons .back-btn svg { display: block; width:18px; height:18px }
-.tab-buttons .back-btn:focus-visible { outline: 6px solid rgba(0,0,0,0.22); outline-offset: 4px }
-.dark .tab-buttons .back-btn { background: #ffffff; color: #052035; border-color: #000000 }
+.tab-buttons .back-btn svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+.tab-buttons .back-btn:focus-visible {
+  outline: 6px solid rgba(0, 0, 0, 0.22);
+  outline-offset: 4px;
+}
+.dark .tab-buttons .back-btn {
+  background: #ffffff;
+  color: #052035;
+  border-color: #000000;
+}
 
 /* Running marquee and parallax + responsive tweaks appended */
-.marquee-wrap { overflow: hidden; width: 100%; margin-bottom: 0.5rem; }
-.marquee { white-space: nowrap; display: block; }
+.marquee-wrap {
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.marquee {
+  white-space: nowrap;
+  display: block;
+}
 .marquee span {
   display: inline-block;
   padding-left: 100%;
@@ -305,24 +335,79 @@ canvas.show {
   letter-spacing: 1px;
   animation: marquee 12s linear infinite;
 }
-@keyframes marquee { from { transform: translateX(0%); } to { transform: translateX(-100%); } }
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
 
 /* dark mode override: preserve background image with dark overlay */
 .dark {
-  background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.7) 100%),
-              url('https://uploader.zenzxz.dpdns.org/uploads/1767381683610.jpeg') center/cover fixed no-repeat;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    ),
+    url("https://uploader.zenzxz.dpdns.org/uploads/1767381683610.jpeg")
+      center/cover fixed no-repeat;
   color: #ffffff;
 }
-.dark .card { background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(0,0,0,0.18)); color: #fff; }
+.dark .card {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.18));
+  color: #fff;
+}
 
 /* responsive */
 @media (max-width: 700px) {
-  body { padding: 1rem; }
-  .card { padding: 1rem; border-radius: 8px; }
-  .wide-button { padding: 0.85rem; font-size: 1rem; }
-  .icon-button { width: 48px; height: 48px; }
-  .marquee span { font-size: 1rem; animation-duration: 9s; }
+  body {
+    padding: 1rem;
+  }
+  .card {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .wide-button {
+    padding: 0.85rem;
+    font-size: 1rem;
+  }
+  .icon-button {
+    width: 48px;
+    height: 48px;
+  }
+  .marquee span {
+    font-size: 1rem;
+    animation-duration: 9s;
+  }
+
+  /* Make tab buttons stack on small screens to avoid overlap */
+  .tab-buttons {
+    gap: 0.5rem;
+  }
+  .tab-buttons .back-btn {
+    flex: 0 0 44px;
+    order: -1;
+    margin-bottom: 0.4rem;
+  }
+  .tab-buttons button {
+    flex: 1 1 100%;
+    margin: 0.25rem 0;
+  }
+  .tab-buttons button + button {
+    margin-left: 0;
+  }
+
+  /* Ensure inputs and canvas have comfortable spacing on small screens */
+  input[type="text"],
+  input[type="file"],
+  canvas {
+    width: 100%;
+  }
 }
 
 /* parallax helper (JS will drive body background position) */
-.parallax-layer { will-change: transform, background-position; }
+.parallax-layer {
+  will-change: transform, background-position;
+}
