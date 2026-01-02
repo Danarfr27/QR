@@ -11,13 +11,22 @@
 <body>
   <div class="card">
     <div class="tab-buttons">
+      <a href="https://ai-maintenance.vercel.app/" class="back-btn" aria-label="Kembali ke AI Maintenance">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
       <button onclick="showTab('generate')">🔧 Generate</button>
       <button onclick="showTab('scan')">📷 Scan</button>
     </div>
 
     <!-- GENERATE TAB -->
     <div id="generateTab" class="tab-content active">
-      <h2>QR Code Generator</h2>
+      <div class="marquee-wrap">
+        <div class="marquee" aria-hidden="false">
+          <span>QR Code Generator By FE4RD0WN</span>
+        </div>
+      </div>
       <input type="text" id="linkInput" placeholder="Paste link di sini" />
       <input type="file" id="imgInput" accept="image/*" />
       <button id="cancelImgBtn" class="wide-button">
