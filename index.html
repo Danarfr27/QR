@@ -9,78 +9,95 @@
   <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
-  <div class="card">
-    <div class="tab-buttons">
-      <a href="https://ai-maintenance.vercel.app/" class="back-btn" aria-label="Kembali ke AI Maintenance">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <button onclick="showTab('generate')">🔧 Generate</button>
-      <button onclick="showTab('scan')">📷 Scan</button>
-    </div>
-
-    <!-- GENERATE TAB -->
-    <div id="generateTab" class="tab-content active">
-      <div class="marquee-wrap">
-        <div class="marquee" aria-hidden="false">
-          <span>QR Code Generator By FE4RD0WN</span>
-        </div>
-      </div>
-      <input type="text" id="linkInput" placeholder="Paste link di sini" />
-      <input type="file" id="imgInput" accept="image/*" />
-      <button id="cancelImgBtn" class="wide-button">
-        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-        </svg>
-        Cancel Gambar
-      </button>
-      <canvas id="qrCanvas" width="256" height="256"></canvas>
-      <button id="downloadBtn" class="wide-button">
-        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Download
-      </button>
-      <button onclick="toggleDarkMode()" class="wide-button">
-        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.58 9.79z" fill="currentColor"/>
-        </svg>
-        Dark Mode
-      </button>
-    </div>
-
-    <!-- SCAN TAB -->
-    <div id="scanTab" class="tab-content">
-      <h2>Scan QR Code</h2>
-      <div class="scan-method">
-        <label><input type="radio" name="scanMode" value="camera" checked /> Kamera</label>
-        <label><input type="radio" name="scanMode" value="upload" /> Upload</label>
-      </div>
-
-      <div id="scanViaCamera" class="scan-option fade">
-        <div class="icon-buttons">
-          <button class="icon-button" onclick="startScanner()">📷</button>
-          <button class="icon-button" onclick="stopScanner()">🛑</button>
-          <button class="icon-button" onclick="downloadScanHistory()">⬇</button>
-        </div>
-        <button onclick="sendViaWhatsApp()" class="wide-button">
-          <span class="icon">📨</span> Kirim ke WhatsApp
-        </button>
-        <div id="reader"></div>
-        <p id="scanResult"></p>
-      </div>
-
-      <div id="scanViaUpload" class="scan-option fade hidden">
-        <input type="file" id="qrImageInput" accept="image/*" class="wide-button" />
-      </div>
-
-      <table id="scanTable">
-        <thead><tr><th>Link</th><th>Waktu</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
+  <div class="bg-orb" aria-hidden="true">
+    <div class="orb a"></div>
+    <div class="orb b"></div>
   </div>
+
+  <main class="card-wrap">
+    <aside class="brand" aria-hidden="true">
+      <div class="logo" aria-hidden="true">
+        <img src="https://uploader.zenzxz.dpdns.org/uploads/1767068581234.jpeg" alt="WORM AI" style="width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;" />
+      </div>
+      <div>
+        <h1>WORM QR</h1>
+        <p>QR Toolkit — FE4RD0WN</p>
+      </div>
+    </aside>
+
+    <section class="card">
+      <div class="tab-buttons">
+        <a href="https://ai-maintenance.vercel.app/" class="back-btn" aria-label="Kembali ke AI Maintenance">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <button onclick="showTab('generate')">🔧 Generate</button>
+        <button onclick="showTab('scan')">📷 Scan</button>
+      </div>
+
+      <!-- GENERATE TAB -->
+      <div id="generateTab" class="tab-content active">
+        <div class="marquee-wrap">
+          <div class="marquee" aria-hidden="false">
+            <span>QR Code Generator By FE4RD0WN</span>
+          </div>
+        </div>
+        <input type="text" id="linkInput" placeholder="Paste link di sini" />
+        <input type="file" id="imgInput" accept="image/*" />
+        <button id="cancelImgBtn" class="wide-button">
+          <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+          Cancel Gambar
+        </button>
+        <canvas id="qrCanvas" width="256" height="256"></canvas>
+        <button id="downloadBtn" class="wide-button">
+          <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download
+        </button>
+        <button onclick="toggleDarkMode()" class="wide-button">
+          <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 0010.58 9.79z" fill="currentColor"/>
+          </svg>
+          Dark Mode
+        </button>
+      </div>
+
+      <!-- SCAN TAB -->
+      <div id="scanTab" class="tab-content">
+        <h2>Scan QR Code</h2>
+        <div class="scan-method">
+          <label><input type="radio" name="scanMode" value="camera" checked /> Kamera</label>
+          <label><input type="radio" name="scanMode" value="upload" /> Upload</label>
+        </div>
+
+        <div id="scanViaCamera" class="scan-option fade">
+          <div class="icon-buttons">
+            <button class="icon-button" onclick="startScanner()">📷</button>
+            <button class="icon-button" onclick="stopScanner()">🛑</button>
+            <button class="icon-button" onclick="downloadScanHistory()">⬇</button>
+          </div>
+          <button onclick="sendViaWhatsApp()" class="wide-button">
+            <span class="icon">📨</span> Kirim ke WhatsApp
+          </button>
+          <div id="reader"></div>
+          <p id="scanResult"></p>
+        </div>
+
+        <div id="scanViaUpload" class="scan-option fade hidden">
+          <input type="file" id="qrImageInput" accept="image/*" class="wide-button" />
+        </div>
+
+        <table id="scanTable">
+          <thead><tr><th>Link</th><th>Waktu</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
