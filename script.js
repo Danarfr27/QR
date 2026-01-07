@@ -13,6 +13,22 @@ let overlayImage = null;
 let html5QrCode = null;
 let scanHistory = [];
 
+// responsive canvas helper
+function resizeCanvas() {
+  const container = canvas.parentElement || document.body;
+  const max = Math.min(512, Math.floor(container.clientWidth * 0.7));
+  const size = Math.max(180, max);
+  if (canvas.width !== size) {
+    canvas.width = size;
+    canvas.height = size;
+    if (linkInput.value) generateQR(linkInput.value, overlayImage);
+  }
+}
+
+function debounce(fn, wait){
+  let t; return function(...a){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,a), wait); }
+}
+
 // Tab switching
 function showTab(tab) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -25,7 +41,7 @@ function generateQR(link, overlayImg) {
   qr.addData(link);
   qr.make();
 
-  const size = canvas.width;
+  const size = canvas.width || 256;
   const tile = size / qr.getModuleCount();
   ctx.clearRect(0, 0, size, size);
 
@@ -90,10 +106,11 @@ function startScanner() {
   if (devices.length) {
     const backCam = devices.find(d => d.label.toLowerCase().includes('back')) || devices[0];
     const cameraId = backCam.id;
-
+    const isMobile = 'ontouchstart' in window || window.innerWidth < 700;
+    const boxSize = Math.min(360, Math.floor(window.innerWidth * (isMobile ? 0.7 : 0.4)));
     html5QrCode.start(
       cameraId,
-      { fps: 10, qrbox: { width: 250, height: 250 } },
+      { fps: isMobile ? 7 : 10, qrbox: { width: boxSize, height: boxSize } },
       qrCodeMessage => {
         const now = new Date().toLocaleString();
         scanHistory.push([qrCodeMessage, now]);
@@ -185,6 +202,9 @@ function sendViaWhatsApp() {
 
 // --- Parallax background (simple, performant) ---
 (() => {
+  const isTouch = 'ontouchstart' in window || window.innerWidth < 700;
+  if (isTouch) return; // disable parallax on small/touch devices
+
   let ticking = false;
   function onScroll() {
     if (!ticking) {
@@ -202,3 +222,7 @@ function sendViaWhatsApp() {
   // also trigger once to initialize
   onScroll();
 })();
+
+// init responsive canvas and listeners
+resizeCanvas();
+window.addEventListener('resize', debounce(resizeCanvas, 150));
